@@ -36,8 +36,8 @@ function do_test()
 
 clear_data
 
-workers_lst="256,512,1024,2048"
-objsz_lst="262144,1048576,4194304,16777216"
+workers_lst="128,256,512,1024"
+objsz_lst="262144,1048576,2097152,4194304,8388608"
 
 ifs=$IFS
 IFS=,
