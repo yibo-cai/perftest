@@ -17,6 +17,7 @@
 package main
 
 import (
+    "flag"
 	"fmt"
 	"io"
 	"log"
@@ -80,7 +81,13 @@ func downloadBlob(objectName string) error {
 	return err
 }
 
+var (
+	objectSize = flag.Int("size", 10*1024*1024, "Size of the object to upload.")
+)
+
 func main() {
+    flag.Parse()
+
 	concurrency := os.Getenv("CONCURRENCY")
 	conc, err := strconv.Atoi(concurrency)
 	if err != nil {
@@ -94,7 +101,7 @@ func main() {
 
 	start := time.Now().UTC()
 	parallelDownloads(objectNames)
-	totalSize := conc * 10485760
+	totalSize := conc * *objectSize
 	elapsed := time.Since(start)
 	fmt.Println("Elapsed time :", elapsed)
 	seconds := float64(elapsed) / float64(time.Second)
